@@ -1,6 +1,5 @@
 import React from 'react';
 
-// deconstructing the props for readability
 const CurrentWeather = ({ city, temperature, ...props }) => {
   return (
     <div>
