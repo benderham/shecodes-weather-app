@@ -6,7 +6,7 @@ const DailyWeatherItem = () => {
   return (
     <div>
       <h3>Wednesday</h3>
-      <WeatherIcon />
+      <WeatherIcon icon="sunny" />
       <div>22</div>
       <div>10</div>
       <HourlyWeather />

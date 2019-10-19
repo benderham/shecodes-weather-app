@@ -1,7 +1,7 @@
 import React from 'react';
-import ComplaintLink from '../atoms/ComplaintLink';
-import Forecast from '../organisms/Forecast';
-import PageTemplate from '../templates/PageTemplate';
+import ComplaintLink from '../components/atoms/ComplaintLink';
+import Forecast from '../components/organisms/Forecast';
+import PageTemplate from '../components/templates/PageTemplate';
 
 const WeatherPage = () => {
   return (

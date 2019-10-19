@@ -1,9 +1,9 @@
 import React from 'react';
 
-const BackLink = ({ ...props }) => {
+const BackLink = ({ onButtonClick, ...props }) => {
   return (
     <div>
-      <button>Actually Nevermind!</button>
+      <button onClick={onButtonClick}>Actually Nevermind!</button>
     </div>
   );
 };
