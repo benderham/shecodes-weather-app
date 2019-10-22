@@ -1,7 +1,12 @@
 import React from 'react';
 
 const Profile = ({ ...props }) => {
-  return <div>Weather Person Profile</div>;
+  return (
+    <div>
+      <h2>Clive Weathers</h2>
+      <p>blah blah blah</p>
+    </div>
+  );
 };
 
 export default Profile;

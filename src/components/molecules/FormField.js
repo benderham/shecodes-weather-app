@@ -3,12 +3,12 @@ import Label from '../atoms/Label';
 import TextArea from '../atoms/TextArea';
 import TextInput from '../atoms/TextInput';
 
-const FormField = ({ type, ...props }) => {
+const FormField = ({ label, type, name, ...props }) => {
   return (
     <>
-      <Label>Form Label</Label>
-      {type === 'text' && <TextInput />}
-      {type === 'textarea' && <TextArea />}
+      <Label name={name}>{label}</Label>
+      {type === 'text' && <TextInput name={name} />}
+      {type === 'textarea' && <TextArea name={name} />}
     </>
   );
 };
