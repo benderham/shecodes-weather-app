@@ -7,7 +7,7 @@ const PageTemplate = ({ city, temperature, changeCity, ...props }) => {
       <CurrentWeather
         city={city}
         temperature={temperature}
-        onTextLinkClick={() => console.log('Change the city!')}
+        onTextLinkClick={changeCity}
       />
       {props.children}
     </div>

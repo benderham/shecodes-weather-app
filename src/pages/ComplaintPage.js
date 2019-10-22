@@ -10,6 +10,7 @@ const WeatherPage = () => {
     <PageTemplate
       city={CURRENT_WEATHER.name}
       temperature={CURRENT_WEATHER.main.temp}
+      changeCity={() => console.log('Change the city!')}
     >
       <TextLink>I changed my mind!</TextLink>
       <WeatherPerson />

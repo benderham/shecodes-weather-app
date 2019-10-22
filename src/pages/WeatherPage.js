@@ -9,6 +9,7 @@ const WeatherPage = () => {
     <PageTemplate
       city={CURRENT_WEATHER.name}
       temperature={CURRENT_WEATHER.main.temp}
+      changeCity={() => console.log('Change the city!')}
     >
       <Forecast forecast={HOURLY_FORECAST} />
       <TextLink>Complain about the weather!</TextLink>
