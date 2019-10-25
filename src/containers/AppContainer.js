@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
-import { CURRENT_WEATHER, HOURLY_FORECAST } from '../data/mockWeather';
 import ComplaintPage from '../pages/ComplaintPage';
 import WeatherPage from '../pages/WeatherPage';
 
 export const WeatherContext = React.createContext(); // Create a context for the Weather.
 
 const CITIES = ['London', 'Paris', 'Perth', 'Tokyo', 'Sydney'];
-
+const API_URL = 'http://localhost:8080/api.openweathermap.org/data/2.5';
+const API_KEY = 'b886e076b4f1f6d27054a9c453121849';
 class AppContainer extends Component {
   // note: drilling "Forecast" down to the Forecast component will be a pain, we want to provide it to the whole app using context.
   constructor(props) {
@@ -15,11 +15,33 @@ class AppContainer extends Component {
 
     this.state = {
       city: CITIES[0],
-      temperature: CURRENT_WEATHER.main.temp,
-      forecast: HOURLY_FORECAST.list
+      temperature: '',
+      forecast: []
     };
 
     this.changeCity = this.changeCity.bind(this);
+  }
+
+  fetchCurrentWeather() {
+    fetch(`${API_URL}/weather?q=${this.state.city}&appid=${API_KEY}`)
+      .then(response => response.json())
+      .then(data => {
+        this.setState({ temperature: data.main.temp });
+      })
+      .catch(err => {
+        console.error(err);
+      });
+  }
+
+  fetchForecast() {
+    fetch(`${API_URL}/forecast?q=${this.state.city}&appid=${API_KEY}`)
+      .then(response => response.json())
+      .then(data => {
+        this.setState({ forecast: data.list });
+      })
+      .catch(err => {
+        console.error(err);
+      });
   }
 
   getRandomCity(array) {
@@ -27,7 +49,15 @@ class AppContainer extends Component {
   }
 
   changeCity() {
-    this.setState({ city: this.getRandomCity(CITIES) });
+    this.setState({ city: this.getRandomCity(CITIES) }, async () => {
+      await this.fetchCurrentWeather();
+      this.fetchForecast();
+    });
+  }
+
+  async componentDidMount() {
+    await this.fetchCurrentWeather();
+    this.fetchForecast();
   }
 
   render() {

@@ -7,6 +7,7 @@ const PageTemplate = ({ ...props }) => {
     <div>
       <WeatherContext.Consumer>
         {({ city, temperature, changeCity }) => {
+          console.log(temperature);
           return (
             <CurrentWeather
               city={city}
