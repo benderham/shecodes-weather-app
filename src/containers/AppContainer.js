@@ -22,12 +22,12 @@ class AppContainer extends Component {
     this.changeCity = this.changeCity.bind(this);
   }
 
-  changeCity() {
-    this.setState({ city: this.getRandomCity(CITIES) });
-  }
-
   getRandomCity(array) {
     return array[Math.floor(Math.random() * array.length)];
+  }
+
+  changeCity() {
+    this.setState({ city: this.getRandomCity(CITIES) });
   }
 
   render() {
