@@ -1,14 +1,10 @@
 import React, { Fragment } from 'react';
-import { HOURLY_FORECAST } from '../../data/mockWeather';
 import { chunkify } from '../../utils';
 import DailyWeather from '../molecules/DailyWeather';
 
 const Forecast = ({ forecast, ...props }) => {
   // Take forecast and split into equal chunks for each day.
-  const chunkedForecast = chunkify(
-    HOURLY_FORECAST.list,
-    HOURLY_FORECAST.list.length / 5
-  );
+  const chunkedForecast = chunkify(forecast, forecast.length / 5);
 
   // Get highest temp from forecast chunk
   const getMaxTemp = array =>
