@@ -6,8 +6,11 @@ import WeatherPage from '../pages/WeatherPage';
 export const WeatherContext = React.createContext(); // Create a context for the Weather.
 
 const CITIES = ['London', 'Paris', 'Perth', 'Tokyo', 'Sydney'];
+
+// WARNING: Do not store any secrets (such as private API keys) in your React app!
+// https://create-react-app.dev/docs/adding-custom-environment-variables/
 const API_URL = 'http://localhost:8080/api.openweathermap.org/data/2.5';
-const API_KEY = 'b886e076b4f1f6d27054a9c453121849';
+
 class AppContainer extends Component {
   // note: drilling "Forecast" down to the Forecast component will be a pain, we want to provide it to the whole app using context.
   constructor(props) {
@@ -22,8 +25,21 @@ class AppContainer extends Component {
     this.changeCity = this.changeCity.bind(this);
   }
 
+  getRandomCity(array) {
+    return array[Math.floor(Math.random() * array.length)];
+  }
+
+  changeCity() {
+    this.setState({ city: this.getRandomCity(CITIES) }, async () => {
+      await this.fetchCurrentWeather();
+      this.fetchForecast();
+    });
+  }
+
   fetchCurrentWeather() {
-    fetch(`${API_URL}/weather?q=${this.state.city}&appid=${API_KEY}`)
+    fetch(
+      `${API_URL}/weather?q=${this.state.city}&units=metric&appid=${process.env.REACT_APP_API_KEY}`
+    )
       .then(response => response.json())
       .then(data => {
         this.setState({ temperature: data.main.temp });
@@ -34,7 +50,9 @@ class AppContainer extends Component {
   }
 
   fetchForecast() {
-    fetch(`${API_URL}/forecast?q=${this.state.city}&appid=${API_KEY}`)
+    fetch(
+      `${API_URL}/forecast?q=${this.state.city}&units=metric&appid=${process.env.REACT_APP_API_KEY}`
+    )
       .then(response => response.json())
       .then(data => {
         this.setState({ forecast: data.list });
@@ -42,17 +60,6 @@ class AppContainer extends Component {
       .catch(err => {
         console.error(err);
       });
-  }
-
-  getRandomCity(array) {
-    return array[Math.floor(Math.random() * array.length)];
-  }
-
-  changeCity() {
-    this.setState({ city: this.getRandomCity(CITIES) }, async () => {
-      await this.fetchCurrentWeather();
-      this.fetchForecast();
-    });
   }
 
   async componentDidMount() {
