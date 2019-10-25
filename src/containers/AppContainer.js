@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Route } from 'react-router-dom';
 import { CURRENT_WEATHER, HOURLY_FORECAST } from '../data/mockWeather';
 import ComplaintPage from '../pages/ComplaintPage';
 import WeatherPage from '../pages/WeatherPage';
@@ -34,8 +35,8 @@ class AppContainer extends Component {
       <WeatherContext.Provider // Populate context with our state object!
         value={{ ...this.state, changeCity: this.changeCity }}
       >
-        <WeatherPage />
-        <ComplaintPage />
+        <Route path="/" exact component={WeatherPage} />
+        <Route path="/complain" component={ComplaintPage} />
       </WeatherContext.Provider>
     );
   }
