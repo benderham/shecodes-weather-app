@@ -4,9 +4,9 @@ import WeatherPerson from '../components/molecules/WeatherPerson';
 import ComplaintForm from '../components/organisms/ComplaintForm';
 import PageTemplate from '../components/templates/PageTemplate';
 
-const ComplaintPage = () => {
+const ComplaintPage = ({ city, temperature, changeCity, ...props }) => {
   return (
-    <PageTemplate>
+    <PageTemplate city={city} temperature={temperature} changeCity={changeCity}>
       <TextLink>I changed my mind!</TextLink>
       <WeatherPerson />
       <ComplaintForm />

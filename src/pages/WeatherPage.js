@@ -1,21 +1,13 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import TextLink from '../components/atoms/TextLink';
 import Forecast from '../components/organisms/Forecast';
 import PageTemplate from '../components/templates/PageTemplate';
-import { WeatherContext } from '../containers/AppContainer';
 
-const WeatherPage = () => {
+const WeatherPage = ({ city, temperature, changeCity, forecast, ...props }) => {
   return (
-    <PageTemplate>
-      <WeatherContext.Consumer>
-        {({ forecast }) => {
-          return <Forecast forecast={forecast} />;
-        }}
-      </WeatherContext.Consumer>
-      <TextLink>
-        <Link to="/complain">Complain about the weather!</Link>
-      </TextLink>
+    <PageTemplate city={city} temperature={temperature} changeCity={changeCity}>
+      <Forecast forecast={forecast} />;
+      <TextLink>Complain about the weather!</TextLink>
     </PageTemplate>
   );
 };
