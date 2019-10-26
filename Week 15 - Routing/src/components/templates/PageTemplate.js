@@ -1,21 +1,14 @@
 import React from 'react';
-import { WeatherContext } from '../../containers/AppContainer';
 import CurrentWeather from '../molecules/CurrentWeather';
 
-const PageTemplate = ({ ...props }) => {
+const PageTemplate = ({ city, temperature, changeCity, ...props }) => {
   return (
     <div>
-      <WeatherContext.Consumer>
-        {({ city, temperature, changeCity }) => {
-          return (
-            <CurrentWeather
-              city={city}
-              temperature={temperature}
-              onTextLinkClick={changeCity}
-            />
-          );
-        }}
-      </WeatherContext.Consumer>
+      <CurrentWeather
+        city={city}
+        temperature={temperature}
+        onTextLinkClick={changeCity}
+      />
       {props.children}
     </div>
   );

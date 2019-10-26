@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
+import { Route } from 'react-router-dom';
 import { CURRENT_WEATHER, HOURLY_FORECAST } from '../data/mockWeather';
 import ComplaintPage from '../pages/ComplaintPage';
 import WeatherPage from '../pages/WeatherPage';
 
-const CITIES = ['London', 'Paris', 'Perth', 'Tokyo', 'Sydney'];
-
+const CITIES = ['London', 'Perth', 'Tokyo', 'Rome', 'Singapore', 'Sydney'];
 class AppContainer extends Component {
   constructor(props) {
     super(props);
@@ -15,30 +15,46 @@ class AppContainer extends Component {
       forecast: HOURLY_FORECAST.list
     };
 
-    this.changeCity = this.changeCity.bind(this);
+    this.handleCityChange = this.handleCityChange.bind(this);
   }
 
   getRandomCity(array) {
     return array[Math.floor(Math.random() * array.length)];
   }
 
-  changeCity() {
+  handleCityChange() {
     this.setState({ city: this.getRandomCity(CITIES) });
   }
 
   render() {
     return (
       <>
-        <WeatherPage
-          city={this.state.city}
-          temperature={this.state.temperature}
-          forecast={this.state.forecast}
-          changeCity={this.changeCity}
+        <Route
+          path="/"
+          component={() => {
+            return (
+              <WeatherPage
+                city={this.state.city}
+                temperature={this.state.temperature}
+                forecast={this.state.forecast}
+                changeCity={this.handleCityChange}
+              />
+            );
+          }}
+          exact
         />
-        <ComplaintPage
-          city={this.state.city}
-          temperature={this.state.temperature}
-          changeCity={this.changeCity}
+
+        <Route
+          path="/complain"
+          component={() => {
+            return (
+              <ComplaintPage
+                city={this.state.city}
+                temperature={this.state.temperature}
+                changeCity={this.handleCityChange}
+              />
+            );
+          }}
         />
       </>
     );
